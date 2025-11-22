@@ -1,0 +1,5 @@
+{
+  "name": "ProBet AI Analyst",
+  "description": "A sophisticated soccer match prediction engine powered by Gemini 2.5. It analyzes form, H2H, and xG data across 20+ leagues to predict outcomes, goals, and corners.",
+  "requestFramePermissions": []
+}
