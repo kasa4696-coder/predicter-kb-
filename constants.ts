@@ -2,6 +2,7 @@ import { League } from './types';
 
 export const LEAGUES: League[] = [
   { id: 'epl', name: 'Premier League', country: 'England' },
+  { id: 'efl_championship', name: 'Championship', country: 'England' },
   { id: 'laliga', name: 'La Liga', country: 'Spain' },
   { id: 'laliga2', name: 'La Liga 2', country: 'Spain' },
   { id: 'seriea', name: 'Serie A', country: 'Italy' },
@@ -29,10 +30,17 @@ export const LEAGUES: League[] = [
 
 export const MOCK_TEAMS: Record<string, string[]> = {
   epl: [
-    "Arsenal", "Aston Villa", "Bournemouth", "Brentford", "Brighton", "Chelsea",
-    "Crystal Palace", "Everton", "Fulham", "Ipswich Town", "Leicester City", "Liverpool",
+    "Arsenal", "Aston Villa", "Bournemouth", "Brentford", "Brighton", "Burnley", 
+    "Chelsea", "Crystal Palace", "Everton", "Fulham", "Leeds United", "Liverpool",
     "Manchester City", "Manchester United", "Newcastle United", "Nottingham Forest",
-    "Southampton", "Tottenham Hotspur", "West Ham United", "Wolverhampton Wanderers"
+    "Sheffield United", "Tottenham Hotspur", "West Ham United", "Wolverhampton Wanderers"
+  ],
+  efl_championship: [
+    "Blackburn Rovers", "Bristol City", "Cardiff City", "Coventry City", "Derby County",
+    "Hull City", "Ipswich Town", "Leicester City", "Luton Town", "Middlesbrough", 
+    "Millwall", "Norwich City", "Oxford United", "Plymouth Argyle", "Portsmouth", 
+    "Preston North End", "QPR", "Sheffield Wednesday", "Southampton", "Stoke City", 
+    "Sunderland", "Swansea City", "Watford", "West Bromwich Albion"
   ],
   laliga: [
     "Alavés", "Athletic Club", "Atlético Madrid", "Barcelona", "Celta Vigo", "Espanyol",

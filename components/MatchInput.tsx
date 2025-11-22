@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Search, PlayCircle } from 'lucide-react';
 import { MOCK_TEAMS } from '../constants';
 
@@ -12,17 +12,14 @@ const MatchInput: React.FC<MatchInputProps> = ({ leagueId, onAnalyze, isLoading 
   const [homeTeam, setHomeTeam] = useState('');
   const [awayTeam, setAwayTeam] = useState('');
   
-  // Fetch teams specific to the selected league to ensure the dropdown works reliably
-  const leagueTeams = useMemo(() => {
-    const teams = MOCK_TEAMS[leagueId] || [];
-    return [...teams].sort();
-  }, [leagueId]);
-
-  // Clear inputs when league changes to prevent mix-ups
-  useEffect(() => {
-    setHomeTeam('');
-    setAwayTeam('');
-  }, [leagueId]);
+  // Combine all teams for cross-league prediction capability
+  const allTeams = useMemo(() => {
+    const teamSet = new Set<string>();
+    Object.values(MOCK_TEAMS).forEach(leagueTeams => {
+      leagueTeams.forEach(team => teamSet.add(team));
+    });
+    return Array.from(teamSet).sort();
+  }, []);
 
   const handleAnalyze = () => {
     if (homeTeam && awayTeam && homeTeam !== awayTeam) {
@@ -47,8 +44,8 @@ const MatchInput: React.FC<MatchInputProps> = ({ leagueId, onAnalyze, isLoading 
               type="text"
               value={homeTeam}
               onChange={(e) => setHomeTeam(e.target.value)}
-              placeholder="Select Home Team..."
-              list="league-teams-suggestions"
+              placeholder="Select Team..."
+              list="all-teams-suggestions"
               className="w-full bg-slate-900 border border-slate-600 text-white px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent placeholder-slate-600"
             />
           </div>
@@ -67,17 +64,17 @@ const MatchInput: React.FC<MatchInputProps> = ({ leagueId, onAnalyze, isLoading 
               type="text"
               value={awayTeam}
               onChange={(e) => setAwayTeam(e.target.value)}
-              placeholder="Select Away Team..."
-              list="league-teams-suggestions"
+              placeholder="Select Team..."
+              list="all-teams-suggestions"
               className="w-full bg-slate-900 border border-slate-600 text-white px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent placeholder-slate-600"
             />
           </div>
         </div>
       </div>
 
-      {/* Datalist for the specific league */}
-      <datalist id="league-teams-suggestions">
-        {leagueTeams.map(team => <option key={team} value={team} />)}
+      {/* Global Datalist for Cross-League Support */}
+      <datalist id="all-teams-suggestions">
+        {allTeams.map(team => <option key={team} value={team} />)}
       </datalist>
 
       <div className="mt-6 flex justify-end">
